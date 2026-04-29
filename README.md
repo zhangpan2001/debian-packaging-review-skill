@@ -5,7 +5,7 @@
 当前版本重点覆盖：
 
 - `debian/control`、`debian/changelog`、`debian/copyright`、`debian/rules` 等核心打包文件审查
-- Lintian、sbuild、piuparts、autopkgtest、reprotest 等工具驱动的验证流程
+- Lintian、debuild、uscan、reprotest 等工具驱动的验证流程
 - shared library、maintainer scripts、systemd、D-Bus、desktop、AppStream 等常见入库风险点
 - UKUI / Kylin / openKylin 软件包面向 Debian unstable 时的差异检查
 
@@ -34,7 +34,7 @@ codex
 2. 先读取 debian/ 目录和主要构建文件；
 3. 输出“必须修复”“建议修复”“可以暂缓”三类问题；
 4. 对每个问题给出原因和最小修改建议；
-5. 特别关注 Debian Policy、lintian、sbuild、piuparts、autopkgtest、copyright、shared library、maintainer scripts；
+5. 特别关注 Debian Policy、lintian、debuild、uscan、copyright、shared library、maintainer scripts；
 6. 如果发现 Ubuntu/Kylin/PPA 专用写法，请单独列出来。
 ```
 
@@ -48,7 +48,7 @@ codex
 3. 先读取 debian/ 目录和主要构建文件；
 4. 输出并写入“必须修复”“建议修复”“可以暂缓”三类问题；
 5. 对每个问题给出原因和最小修改建议；
-6. 特别关注 Debian Policy、lintian、sbuild、piuparts、autopkgtest、copyright、shared library、maintainer scripts；
+6. 特别关注 Debian Policy、lintian、debuild、uscan、copyright、shared library、maintainer scripts；
 7. 如果发现 Ubuntu/Kylin/PPA 专用写法，请单独列出来；
 8. 最后给出当前包的 A/B/C/D 分级和下一步建议。
 ```
@@ -96,7 +96,7 @@ codex
 ### 分析检查日志
 
 ```text
-下面是 lintian / sbuild / piuparts / autopkgtest 日志。
+下面是 lintian / debuild / uscan / reprotest 日志。
 请按照 Debian sponsor 审核标准分析：
 1. 哪些是必须修复；
 2. 哪些可以解释或 override；
@@ -111,7 +111,7 @@ codex
 请根据当前包的状态，按照 AGENTS.md 的规则给出验证顺序。
 要求：
 1. 先说明哪些命令应该先跑，哪些命令适合第二轮再跑；
-2. 覆盖 fakeroot debian/rules clean、dpkg-source --build、debuild、lintian、uscan、sbuild、piuparts、autopkgtest；
+2. 覆盖 fakeroot debian/rules clean、dpkg-source --build、debuild、lintian、uscan、reprotest；
 3. 如果某些工具当前环境可能缺失，请说明缺失时的处理方式；
 4. 不要修改文件，只输出建议命令和每条命令的目的。
 ```
@@ -125,7 +125,7 @@ codex
 2. debian/control 是否适合 Debian；
 3. debian/copyright 是否完整；
 4. lintian 是否还有 error/warning；
-5. sbuild/piuparts/autopkgtest 是否通过；
+5. debuild/lintian/uscan 是否通过；
 6. mentors 上传前还缺什么；
 7. RFS 邮件应该怎么写。
 ```
@@ -146,7 +146,7 @@ codex
 
 | 标签 | 含义 | 建议处理方式 |
 |---|---|---|
-| A | 基本可入库，只需小修 | 优先整改，尽快跑 lintian、sbuild、piuparts、autopkgtest |
+| A | 基本可入库，只需小修 | 优先整改，尽快跑 debuild、lintian、uscan |
 | B | 可以整改，但需要一轮构建、版权或依赖处理 | 第二优先级，先解决明确阻塞项 |
 | C | 阻塞较大，license、DFSG、embedded copy、架构拆包等有硬问题 | 先确认是否值得投入，必要时拆分专题处理 |
 | D | 暂不适合 Debian 入库 | 记录原因，暂缓推进 |
@@ -159,7 +159,7 @@ codex
 - 审查日期
 - 当前分级
 - 最大阻塞项
-- lintian、sbuild、piuparts、autopkgtest 状态
+- debuild、lintian、uscan 状态
 - 下一步最小整改动作
 
 这样可以避免重复审查，也方便后续按优先级推进。
@@ -181,4 +181,4 @@ codex
 
 ## 说明
 
-这个 Skill 旨在辅助发现问题和组织整改思路，不能替代 Debian Policy、Developer's Reference、Maintainer Guide、Lintian、sbuild、piuparts、autopkgtest 等官方文档和工具结果。
+这个 Skill 旨在辅助发现问题和组织整改思路，不能替代 Debian Policy、Developer's Reference、Maintainer Guide、Lintian、debuild、uscan 等官方文档和工具结果。
