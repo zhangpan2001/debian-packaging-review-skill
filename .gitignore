@@ -1,0 +1,11 @@
+.DS_Store
+*~
+*.swp
+*.swo
+
+# Local editor and temporary files
+.idea/
+.vscode/
+tmp/
+temp/
+.codex
