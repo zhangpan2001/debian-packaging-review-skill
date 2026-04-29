@@ -23,6 +23,8 @@ codex
 
 ## 推荐提示词
 
+下面这些提示词可以直接复制到 Codex 对话中使用。建议第一次审查只生成报告，不直接修改源码；确认问题后再进入整改阶段。
+
 ### 首次静态审查
 
 ```text
@@ -34,6 +36,36 @@ codex
 4. 对每个问题给出原因和最小修改建议；
 5. 特别关注 Debian Policy、lintian、sbuild、piuparts、autopkgtest、copyright、shared library、maintainer scripts；
 6. 如果发现 Ubuntu/Kylin/PPA 专用写法，请单独列出来。
+```
+
+### 首次审查并生成报告文件
+
+```text
+请按照 AGENTS.md 的规则，对当前 Debian 源码包做第一次入库级审查。
+要求：
+1. 不要修改源码和 debian/ 打包文件；
+2. 可以新建或更新当前目录下的 DEBIAN_REVIEW_REPORT.md；
+3. 先读取 debian/ 目录和主要构建文件；
+4. 输出并写入“必须修复”“建议修复”“可以暂缓”三类问题；
+5. 对每个问题给出原因和最小修改建议；
+6. 特别关注 Debian Policy、lintian、sbuild、piuparts、autopkgtest、copyright、shared library、maintainer scripts；
+7. 如果发现 Ubuntu/Kylin/PPA 专用写法，请单独列出来；
+8. 最后给出当前包的 A/B/C/D 分级和下一步建议。
+```
+
+### UKUI / Kylin / openKylin 包审查
+
+```text
+请按照 AGENTS.md 的规则，对当前 UKUI / Kylin / openKylin Debian 源码包做入库级审查。
+要求：
+1. 不要直接修改文件，先输出审查报告；
+2. 重点检查 debian/control 中 Maintainer 是否为 kylin Team <team+kylin@tracker.debian.org>；
+3. 重点检查 debian/watch 是否使用 openKylin / Gitee release 模板，并且只替换了对应仓库名和源码包名；
+4. 检查是否残留 Ubuntu / Kylin / PPA 专用版本号、路径、服务、主题或依赖；
+5. 检查 debian/copyright 是否覆盖 Kylin 品牌资源、图标、字体、第三方代码和 embedded copy；
+6. 检查 shared library、maintainer scripts、systemd、D-Bus、desktop、AppStream 是否符合 Debian unstable 入库要求；
+7. 按“必须修复”“建议修复”“可以暂缓”输出，并给出最小修改方案；
+8. 最后给出 A/B/C/D 分级。
 ```
 
 ### 开始整改
@@ -48,6 +80,19 @@ codex
 5. 不要添加没有充分理由的 lintian override。
 ```
 
+### 按报告继续整改
+
+```text
+请读取当前目录下的 DEBIAN_REVIEW_REPORT.md，并根据报告继续整改。
+要求：
+1. 优先处理“必须修复”部分；
+2. 每次只做一类相关修改；
+3. 不要修改与当前问题无关的文件；
+4. 修改后更新 DEBIAN_REVIEW_REPORT.md 中对应问题的状态；
+5. 给出本轮修改涉及的文件、建议检查的 git diff 命令和下一步验证命令；
+6. 不要添加没有充分理由的 lintian override。
+```
+
 ### 分析检查日志
 
 ```text
@@ -58,6 +103,17 @@ codex
 3. 哪些是环境问题；
 4. 每个问题对应的最小修改方案；
 5. 修改后应该重新运行哪些命令。
+```
+
+### 跑验证前制定命令顺序
+
+```text
+请根据当前包的状态，按照 AGENTS.md 的规则给出验证顺序。
+要求：
+1. 先说明哪些命令应该先跑，哪些命令适合第二轮再跑；
+2. 覆盖 fakeroot debian/rules clean、dpkg-source --build、debuild、lintian、uscan、sbuild、piuparts、autopkgtest；
+3. 如果某些工具当前环境可能缺失，请说明缺失时的处理方式；
+4. 不要修改文件，只输出建议命令和每条命令的目的。
 ```
 
 ### RFS 准备
