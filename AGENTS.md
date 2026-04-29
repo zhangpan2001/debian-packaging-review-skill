@@ -62,6 +62,7 @@
 - Source 名称是否符合 Debian 命名习惯
 - Section / Priority 是否合理
 - Maintainer / Uploaders 是否合理
+- 如果是 UKUI / Kylin / openKylin 相关软件包，`Maintainer` 应使用 `kylin Team <team+kylin@tracker.debian.org>`
 - Standards-Version 是否为当前 Debian Policy 版本
 - Rules-Requires-Root 是否设置合理，优先使用 `no`
 - Build-Depends 是否最小化且完整
@@ -125,6 +126,14 @@
 检查：
 
 - 是否能追踪 upstream release
+- 对 openKylin / Gitee release 项目，优先使用以下 `debian/watch` 模板，并只替换对应仓库名和源码包名：
+
+```text
+Version: 5
+Source: https://gitee.com/openkylin/<repo-name>/releases/
+Matching-Pattern: download/debian/\d[\d.]*(?:-\d+)?/<source-package>_(\d[\d.]*)\.orig\.tar\.gz
+```
+
 - 是否支持 `uscan`
 - 是否需要 `repacksuffix`
 - 是否需要 `dversionmangle` / `uversionmangle`
@@ -380,6 +389,8 @@ debian: fix packaging issues for Debian upload
 
 如果当前项目是 UKUI / Kylin / openKylin 相关软件包，请额外注意：
 
+- `debian/control` 中 `Maintainer` 应写为 `kylin Team <team+kylin@tracker.debian.org>`
+- `debian/watch` 应按 openKylin / Gitee release 模板书写，通常只替换对应仓库名和源码包名
 - 目标是进入 Debian unstable，而不是 Ubuntu PPA
 - 不要保留 Ubuntu 专用版本号，例如 `-0ubuntu1`
 - 不要保留 PPA 上传记录作为 Debian changelog 的主要内容
