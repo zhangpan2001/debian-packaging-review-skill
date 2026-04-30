@@ -44,13 +44,14 @@ codex
 请按照 AGENTS.md 的规则，对当前 Debian 源码包做第一次入库级审查。
 要求：
 1. 不要修改源码和 debian/ 打包文件；
-2. 可以新建或更新当前目录下的 DEBIAN_REVIEW_REPORT.md；
+2. 请将本次审查结果写入当前目录下的 DEBIAN_REVIEW_REPORT.md；
 3. 先读取 debian/ 目录和主要构建文件；
 4. 输出并写入“必须修复”“建议修复”“可以暂缓”三类问题；
 5. 对每个问题给出原因和最小修改建议；
 6. 特别关注 Debian Policy、lintian、debuild、uscan、copyright、shared library、maintainer scripts；
 7. 如果发现 Ubuntu/Kylin/PPA 专用写法，请单独列出来；
-8. 最后给出当前包的 A/B/C/D 分级和下一步建议。
+8. 报告中请包含：审查日期、包名、A/B/C/D 分级、必须修复项、建议修复项、可以暂缓项、下一步建议；
+9. 如果 DEBIAN_REVIEW_REPORT.md 已存在，请保留历史内容，并以新的审查日期追加一节，不要覆盖旧记录。
 ```
 
 ### UKUI / Kylin / openKylin 包审查
